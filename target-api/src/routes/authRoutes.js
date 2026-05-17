@@ -30,6 +30,6 @@ router.post("/login", validateLogin, checkUserExists, login);
 router.post(
   "/refresh",
   refreshAccessToken
-);
+); 
 
 module.exports = router;

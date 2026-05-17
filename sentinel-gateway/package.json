@@ -2,10 +2,10 @@
   "name": "sentinel-gateway",
   "version": "1.0.0",
   "main": "index.js",
- "scripts": {
-  "dev": "nodemon src/server.js",
-  "start": "node src/server.js"
-},
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "http-proxy-middleware": "^3.0.5",
     "redis": "^5.12.1"
   },
   "devDependencies": {

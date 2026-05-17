@@ -7,3 +7,4 @@ def root():
     return {
         "message": "ML Service running"
     }
+    

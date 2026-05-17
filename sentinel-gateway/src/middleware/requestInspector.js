@@ -14,7 +14,7 @@ const requestInspector = (req, res, next) => {
     request: {
       method: req.method,
       path: req.originalUrl,
-      query: req.query,
+      query: { ...req.query },
       contentType: req.headers["content-type"] || null,
       contentLength: req.headers["content-length"] || 0,
       headerCount: Object.keys(req.headers).length,

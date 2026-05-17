@@ -15,7 +15,7 @@ const riskAnalyzer = (req, res, next) => {
   }
 
   if (
-    Number(req.telemetry.request.contentLength) > 10000
+    Number(req.telemetry.request.contentLength) >10000
   ) {
     riskScore += 30;
     flags.push("large-payload");

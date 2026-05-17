@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const proxyMiddleware = createProxyMiddleware({
-  target: "http://localhost:5000",
+  target: process.env.TARGET_API_URL,
   changeOrigin: true,
   logLevel: "debug",
   onError: (err, req, res) => {

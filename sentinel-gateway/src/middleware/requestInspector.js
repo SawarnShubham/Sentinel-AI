@@ -47,8 +47,9 @@ const requestInspector = (req, res, next) => {
 
   req.telemetry = telemetry;
 
-  console.log("SENTINEL TELEMETRY:", telemetry);
-
+//   res.on("finish", () => {
+//     console.log("FINAL SENTINEL TELEMETRY:", req.telemetry);
+//   });
   next();
 };
 

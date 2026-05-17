@@ -3,6 +3,9 @@ const cors = require("cors");
 const proxyMiddleware = require("./middleware/proxyMiddleware");
 const { requestInspector } = require("./middleware/requestInspector");
 const { requestTracker } = require("./middleware/requestTracker");
+const { riskAnalyzer } = require("./middleware/riskAnalyzer");
+const { responseTracker } = require("./middleware/responseTracker");
+const {decisionEngine} = require("./middleware/decisionEngine");
 const app = express();
 
 app.use(cors());
@@ -15,6 +18,9 @@ app.get("/", (req, res) => {
 
 app.use(requestTracker);
 app.use(requestInspector);
+app.use(riskAnalyzer);
+app.use(decisionEngine);
+app.use(responseTracker);
 app.use(proxyMiddleware);
 
 module.exports = app;

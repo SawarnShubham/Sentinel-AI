@@ -6,6 +6,7 @@ const { requestTracker } = require("./middleware/requestTracker");
 const { riskAnalyzer } = require("./middleware/riskAnalyzer");
 const { responseTracker } = require("./middleware/responseTracker");
 const {decisionEngine} = require("./middleware/decisionEngine");
+const { mlThreatAnalyzer } = require("./middleware/mlThreatAnalyzer");
 const app = express();
 
 app.use(cors());
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 app.use(requestTracker);
 app.use(requestInspector);
 app.use(riskAnalyzer);
+app.use(mlThreatAnalyzer);
 app.use(decisionEngine);
 app.use(responseTracker);
 app.use(proxyMiddleware);

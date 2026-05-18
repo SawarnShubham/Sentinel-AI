@@ -35,6 +35,8 @@ FLAGS        : ${req.telemetry.security.flags.join(", ") || "None"}
 DECISION     : ${req.telemetry.security.decision}
 STATUS CODE  : ${req.telemetry.response.statusCode}
 LATENCY      : ${req.telemetry.timing.responseTimeMs} ms
+AI SCORE    : ${req.telemetry.security.anomalyScore || 0}
+AI VERDICT  : ${req.telemetry.security.mlPrediction || "unknown"}
 =========================================================
 `);
   });

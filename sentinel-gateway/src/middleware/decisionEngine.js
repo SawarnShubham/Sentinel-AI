@@ -5,6 +5,9 @@ const RISK_BLOCK_THRESHOLD =
 
 const decisionEngine = (req, res, next) => {
   const riskScore = req.telemetry.security.riskScore;
+  const anomalyScore =
+    req.telemetry.security.anomalyScore || 0;
+
   const ip = req.telemetry.network.ip;
 
   if (isBlocked(ip)) {
@@ -21,7 +24,16 @@ const decisionEngine = (req, res, next) => {
 
     return res.status(403).json({
       success: false,
-      message: "Request blocked by Sentinel",
+      message: "Request blocked by Sentinel risk engine",
+    });
+  }
+
+  if (anomalyScore >= 0.8) {
+    req.telemetry.security.decision = "BLOCK";
+
+    return res.status(403).json({
+      success: false,
+      message: "Request blocked by Sentinel AI engine",
     });
   }
 

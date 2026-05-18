@@ -21,8 +21,8 @@ app.use(requestTracker);
 app.use(requestInspector);
 app.use(riskAnalyzer);
 app.use(mlThreatAnalyzer);
-app.use(decisionEngine);
 app.use(responseTracker);
+app.use(decisionEngine);
 app.use(proxyMiddleware);
 
 module.exports = app;

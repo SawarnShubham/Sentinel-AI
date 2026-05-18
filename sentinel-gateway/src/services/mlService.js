@@ -15,6 +15,7 @@ const analyzeWithML = async (telemetry) => {
         userAgent: telemetry.client.userAgent,
         riskScore: telemetry.security.riskScore,
         failedLoginCount: attackData.failedLogins,
+        requestFrequency: attackData.requestCount,
         hasAuthHeader: telemetry.client.hasAuthHeader,
         contentLength:
           Number(telemetry.request.contentLength) || 0,

@@ -10,7 +10,20 @@ const getAttackData = (ip) => {
   return attackMemory[ip] || {
     failedLogins: 0,
     blockedUntil: null,
+    requestCount: 0,
   };
+};
+
+const recordRequest = (ip) => {
+  if (!attackMemory[ip]) {
+    attackMemory[ip] = {
+      failedLogins: 0,
+      blockedUntil: null,
+      requestCount: 0,
+    };
+  }
+
+  attackMemory[ip].requestCount += 1;
 };
 
 const recordFailedLogin = (ip) => {
@@ -18,6 +31,7 @@ const recordFailedLogin = (ip) => {
     attackMemory[ip] = {
       failedLogins: 0,
       blockedUntil: null,
+      requestCount: 0,
     };
   }
 
@@ -52,6 +66,7 @@ const isBlocked = (ip) => {
 
 module.exports = {
   getAttackData,
+  recordRequest,
   recordFailedLogin,
   resetAttackData,
   isBlocked,

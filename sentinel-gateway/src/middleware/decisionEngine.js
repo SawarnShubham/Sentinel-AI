@@ -5,8 +5,8 @@ const RISK_BLOCK_THRESHOLD =
 
 const decisionEngine = (req, res, next) => {
   const riskScore = req.telemetry.security.riskScore;
-  const anomalyScore =
-    req.telemetry.security.anomalyScore || 0;
+  const mlPrediction =
+    req.telemetry.security.mlPrediction;
 
   const ip = req.telemetry.network.ip;
 
@@ -15,7 +15,8 @@ const decisionEngine = (req, res, next) => {
 
     return res.status(403).json({
       success: false,
-      message: "IP temporarily blocked due to suspicious activity",
+      message:
+        "IP temporarily blocked due to suspicious activity",
     });
   }
 
@@ -28,7 +29,7 @@ const decisionEngine = (req, res, next) => {
     });
   }
 
-  if (anomalyScore >= 0.8) {
+  if (mlPrediction === "suspicious") {
     req.telemetry.security.decision = "BLOCK";
 
     return res.status(403).json({

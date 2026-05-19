@@ -6,6 +6,7 @@ dataset = pd.read_csv(
     "training/processed_telemetry_dataset.csv"
 )
 
+#model for training dataset
 model = IsolationForest(
     contamination=0.15,
     random_state=42,

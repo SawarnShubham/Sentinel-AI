@@ -1,5 +1,4 @@
 import joblib
-import numpy as np
 import ipaddress
 import pandas as pd
 from app.core.config import MODEL_PATH
@@ -56,8 +55,6 @@ def extract_features(data):
         "isSensitiveEndpoint": is_sensitive_endpoint,
     }])
 
-    return np.array(feature_vector)
-
 
 def predict_anomaly(data):
     loaded_model = load_model()
@@ -77,7 +74,22 @@ def predict_anomaly(data):
 
     is_suspicious = prediction[0] == -1
 
+    reasons = []
+
+    if data.requestFrequency > 5:
+        reasons.append("High request frequency")
+
+    if data.failedLoginCount > 3:
+        reasons.append("Repeated failed login attempts")
+
+    if "auth" in data.path.lower():
+        reasons.append("Sensitive authentication endpoint targeted")
+
+    if data.userAgent == "Unknown":
+        reasons.append("Missing or suspicious user agent")
+
     return {
         "anomalyScore": float(anomaly_score[0]),
-        "prediction": "suspicious" if is_suspicious else "normal"
+        "prediction": "suspicious" if is_suspicious else "normal",
+        "reasons": reasons
     }

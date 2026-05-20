@@ -11,6 +11,7 @@ const saveSecurityEvent = async (telemetry) => {
   }
 };
 
+
 module.exports = {
   saveSecurityEvent,
 };

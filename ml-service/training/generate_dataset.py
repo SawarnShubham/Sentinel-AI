@@ -16,7 +16,8 @@ normal_data = pd.DataFrame({
     "isPrivateIP": np.random.randint(0, 2, NORMAL_SAMPLES),
     "requestFrequency": np.random.randint(1, 10, NORMAL_SAMPLES),
     "isAuthEndpoint": np.random.randint(0, 2, NORMAL_SAMPLES),
-    "isSensitiveEndpoint": np.random.randint(0, 2, NORMAL_SAMPLES),
+    "isSensitiveEndpoint": np.random.randint(0, 1, NORMAL_SAMPLES),
+    "label": 0
 })
 
 attack_data = pd.DataFrame({
@@ -28,8 +29,9 @@ attack_data = pd.DataFrame({
     "isLocalIP": np.random.randint(0, 1, ATTACK_SAMPLES),
     "isPrivateIP": np.random.randint(0, 1, ATTACK_SAMPLES),
     "requestFrequency": np.random.randint(20, 200, ATTACK_SAMPLES),
-    "isAuthEndpoint": np.random.randint(0, 2, ATTACK_SAMPLES),
+    "isAuthEndpoint": np.random.randint(1, 2, ATTACK_SAMPLES),
     "isSensitiveEndpoint": np.random.randint(1, 2, ATTACK_SAMPLES),
+    "label": 1
 })
 
 dataset = pd.concat([normal_data, attack_data])
@@ -39,4 +41,4 @@ dataset.to_csv(
     index=False
 )
 
-print("Telemetry dataset generated successfully.")
+print("Labeled telemetry dataset generated successfully.")

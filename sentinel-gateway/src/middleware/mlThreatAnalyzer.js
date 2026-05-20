@@ -8,6 +8,9 @@ const mlThreatAnalyzer = async (req, res, next) => {
 
   req.telemetry.security.mlPrediction =
     mlResult.prediction;
+  
+  req.telemetry.security.aiReasons =
+    mlResult.reasons || [];
 
   next();
 };

@@ -40,6 +40,10 @@ const securityEventSchema = new mongoose.Schema(
       riskScore: Number,
       flags: [String],
       decision: String,
+      blockSource: String,
+      anomalyScore: Number,
+      mlPrediction: String,
+      aiReasons: [String],
     },
 
     response: {
@@ -53,10 +57,7 @@ const securityEventSchema = new mongoose.Schema(
   },
   {
     versionKey: false,
-  }
+  },
 );
 
-module.exports = mongoose.model(
-  "SecurityEvent",
-  securityEventSchema
-);
+module.exports = mongoose.model("SecurityEvent", securityEventSchema);

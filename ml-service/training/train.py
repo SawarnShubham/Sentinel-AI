@@ -6,14 +6,15 @@ dataset = pd.read_csv(
     "training/processed_telemetry_dataset.csv"
 )
 
-#model for training dataset
+X = dataset.drop(columns=["label"])
+
 model = IsolationForest(
     contamination=0.15,
     random_state=42,
     n_estimators=200
 )
 
-model.fit(dataset)
+model.fit(X)
 
 joblib.dump(
     model,

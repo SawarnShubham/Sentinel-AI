@@ -23,6 +23,7 @@ def preprocess_dataset(input_path, output_path):
     ]
 
     X = df[features]
+    y = df["label"]
 
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
@@ -31,6 +32,8 @@ def preprocess_dataset(input_path, output_path):
         X_scaled,
         columns=features
     )
+
+    processed_df["label"] = y.values
 
     processed_df.to_csv(
         output_path,
@@ -43,7 +46,8 @@ def preprocess_dataset(input_path, output_path):
     )
 
     print("Dataset preprocessing completed.")
-    
+
+
 if __name__ == "__main__":
     preprocess_dataset(
         "training/telemetry_dataset.csv",

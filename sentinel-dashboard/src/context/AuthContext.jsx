@@ -1,0 +1,34 @@
+import { createContext, useContext, useState } from "react";
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(
+    localStorage.getItem("sentinelToken") || null
+  );
+
+  const login = (newToken) => {
+    localStorage.setItem("sentinelToken", newToken);
+    setToken(newToken);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("sentinelToken");
+    setToken(null);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        token,
+        login,
+        logout,
+        isAuthenticated: !!token,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);

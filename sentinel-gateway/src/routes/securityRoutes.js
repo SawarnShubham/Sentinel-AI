@@ -1,4 +1,5 @@
 const express = require("express");
+
 const {
   getSecurityStats,
   getSecurityEvents,
@@ -6,7 +7,13 @@ const {
   getBlockedEvents,
 } = require("../controllers/securityController");
 
+const {
+  authMiddleware,
+} = require("../middleware/authMiddleware");
+
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.get("/stats", getSecurityStats);
 router.get("/events", getSecurityEvents);

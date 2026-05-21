@@ -5,51 +5,50 @@ import {
   Avatar,
 } from "@mui/material";
 
-const Topbar = () => {
+const Topbar = ({ title }) => {
   return (
     <Box
       sx={{
-        padding: 3,
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent:
+          "space-between",
         alignItems: "center",
+        padding: 3,
         borderBottom:
-          "1px solid rgba(255,255,255,0.08)",
+          "1px solid rgba(255,255,255,0.06)",
         background:
-          "rgba(15,23,42,0.55)",
-        backdropFilter: "blur(16px)",
+          "rgba(15,23,42,0.7)",
       }}
     >
       <Box>
         <Typography
-          variant="h5"
+          variant="h4"
           fontWeight="700"
           color="white"
         >
-          Security Monitoring Dashboard
+          {title}
         </Typography>
 
         <Typography
-          variant="body2"
           sx={{
             color: "#94a3b8",
           }}
         >
-          Real-time AI threat intelligence
+          Real-time cyber threat intelligence
         </Typography>
       </Box>
 
       <Box
         display="flex"
-        alignItems="center"
         gap={2}
+        alignItems="center"
       >
         <Chip
-          label="LIVE PROTECTION"
+          label="LIVE"
           sx={{
             background: "#16a34a",
             color: "white",
-            fontWeight: "bold",
+            fontWeight: 700,
           }}
         />
 

@@ -8,16 +8,17 @@ const authMiddleware = (req, res, next) => {
     if (!authHeader) {
       return res.status(401).json({
         success: false,
-        message: "Authorization token required",
+        message: "Authorization token required"
       });
     }
 
-    const token = authHeader.split(" ")[1];
+    const token =
+      authHeader.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: "Invalid authorization format",
+        message: "Invalid authorization format"
       });
     }
 
@@ -26,6 +27,14 @@ const authMiddleware = (req, res, next) => {
       process.env.ACCESS_TOKEN_SECRET
     );
 
+    if (decoded.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message:
+          "Admin access required for Sentinel dashboard"
+      });
+    }
+
     req.adminUser = decoded;
 
     next();
@@ -33,7 +42,7 @@ const authMiddleware = (req, res, next) => {
   } catch (error) {
     return res.status(401).json({
       success: false,
-      message: "Invalid or expired token",
+      message: "Invalid or expired token"
     });
   }
 };

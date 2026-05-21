@@ -6,17 +6,23 @@ const {
   verifyRefreshToken
 } = require("../services/tokenService");
 const register = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+    try {
+    const {
+      name,
+      email,
+      password,
+      role
+    } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword =
+      await bcrypt.hash(password, 10);
 
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
+      role: role || "user",
     });
-
     res.status(201).json({
       message: "User registered successfully",
       userId: user._id,
@@ -54,7 +60,13 @@ const login = async (req, res) => {
       success: true,
       message: "Login successful",
       accessToken,
-      refreshToken
+      refreshToken,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
     });
 
   } catch (error) {

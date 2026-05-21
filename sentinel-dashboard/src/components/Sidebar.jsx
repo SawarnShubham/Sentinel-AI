@@ -5,92 +5,103 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Divider,
 } from "@mui/material";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShieldIcon from "@mui/icons-material/Shield";
-import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 import BlockIcon from "@mui/icons-material/Block";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const menuItems = [
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
+const items = [
   {
     label: "Dashboard",
     icon: <DashboardIcon />,
+    path: "/dashboard",
   },
   {
     label: "Threat Events",
     icon: <ShieldIcon />,
+    path: "/events",
   },
   {
     label: "AI Anomalies",
-    icon: <WarningAmberIcon />,
+    icon: <PsychologyIcon />,
+    path: "/anomalies",
   },
   {
     label: "Blocked Requests",
     icon: <BlockIcon />,
+    path: "/blocked",
   },
   {
     label: "Analytics",
     icon: <AnalyticsIcon />,
+    path: "/analytics",
   },
 ];
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { logout } = useAuth();
+
   return (
     <Box
       sx={{
         width: 280,
-        height: "100vh",
+        minHeight: "100vh",
         background:
-          "linear-gradient(180deg, rgba(15,23,42,0.98), rgba(2,6,23,0.98))",
+          "linear-gradient(180deg,#020617,#0f172a)",
         borderRight:
-          "1px solid rgba(255,255,255,0.08)",
+          "1px solid rgba(255,255,255,0.06)",
         padding: 3,
-        backdropFilter: "blur(20px)",
       }}
     >
-      <Box mb={5}>
-        <Typography
-          variant="h4"
-          fontWeight="800"
-          sx={{
-            color: "#38bdf8",
-            letterSpacing: 1,
-          }}
-        >
-          Sentinel AI
-        </Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          color: "white",
+          fontWeight: 800,
+          mb: 1,
+        }}
+      >
+        Sentinel AI
+      </Typography>
 
-        <Typography
-          variant="body2"
-          sx={{
-            color: "#94a3b8",
-            mt: 1,
-          }}
-        >
-          Security Operations Console
-        </Typography>
-      </Box>
+      <Typography
+        sx={{
+          color: "#94a3b8",
+          mb: 5,
+        }}
+      >
+        Security Operations Center
+      </Typography>
 
       <List>
-        {menuItems.map((item) => (
+        {items.map((item) => (
           <ListItemButton
             key={item.label}
+            onClick={() =>
+              navigate(item.path)
+            }
             sx={{
+              mb: 1.5,
               borderRadius: 3,
-              mb: 1.2,
+              background:
+                location.pathname === item.path
+                  ? "rgba(56,189,248,0.18)"
+                  : "transparent",
+              color: "white",
               paddingY: 1.5,
-              color: "#e2e8f0",
               "&:hover": {
                 background:
                   "rgba(56,189,248,0.12)",
-                transform:
-                  "translateX(4px)",
               },
-              transition: "all 0.25s ease",
             }}
           >
             <ListItemIcon
@@ -106,30 +117,28 @@ const Sidebar = () => {
         ))}
       </List>
 
-      <Divider
-        sx={{
-          my: 4,
-          borderColor:
-            "rgba(255,255,255,0.08)",
-        }}
-      />
-
-      <ListItemButton
-        sx={{
-          borderRadius: 3,
-          color: "#f87171",
-        }}
-      >
-        <ListItemIcon
+      <Box mt={8}>
+        <ListItemButton
+          onClick={() => {
+            logout();
+            navigate("/");
+          }}
           sx={{
+            borderRadius: 3,
             color: "#f87171",
           }}
         >
-          <LogoutIcon />
-        </ListItemIcon>
+          <ListItemIcon
+            sx={{
+              color: "#f87171",
+            }}
+          >
+            <LogoutIcon />
+          </ListItemIcon>
 
-        <ListItemText primary="Logout" />
-      </ListItemButton>
+          <ListItemText primary="Logout" />
+        </ListItemButton>
+      </Box>
     </Box>
   );
 };

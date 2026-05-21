@@ -16,8 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] =
-    useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const { login } = useAuth();
@@ -27,19 +26,17 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const data = await loginAdmin(
-        email,
-        password
-      );
+      const data = await loginAdmin(email, password);
+
+      if (data.user.role !== "admin") {
+        setError("Security dashboard access is restricted to administrators");
+        return;
+      }
 
       login(data.accessToken);
       navigate("/dashboard");
-
     } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          "Login failed"
-      );
+      setError(err.response?.data?.message || "Login failed");
     }
   };
 
@@ -47,8 +44,7 @@ const Login = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg, #0f172a, #111827, #1e293b)",
+        background: "linear-gradient(135deg, #0f172a, #111827, #1e293b)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -63,14 +59,11 @@ const Login = () => {
         <Card
           sx={{
             width: 420,
-            background:
-              "rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.08)",
             backdropFilter: "blur(20px)",
             borderRadius: 5,
-            boxShadow:
-              "0 0 40px rgba(0,255,255,0.15)",
-            border:
-              "1px solid rgba(255,255,255,0.1)",
+            boxShadow: "0 0 40px rgba(0,255,255,0.15)",
+            border: "1px solid rgba(255,255,255,0.1)",
           }}
         >
           <CardContent sx={{ p: 5 }}>
@@ -88,24 +81,26 @@ const Login = () => {
                 }}
               />
 
-              <Typography
-                variant="h4"
-                fontWeight="bold"
-                color="white"
-              >
+              <Typography variant="h4" fontWeight="bold" color="white">
                 Sentinel AI
               </Typography>
 
-              <Typography
-                variant="body1"
-                color="gray"
-              >
+              <Typography variant="body1" color="white" sx={{ opacity: 0.7 }}>
                 Security Operations Console
               </Typography>
             </Box>
 
             {error && (
-              <Alert severity="error" sx={{ mb: 2 }}>
+              <Alert
+                severity="error"
+                sx={{
+                  mb: 3,
+                  borderRadius: 3,
+                  background: "rgba(239,68,68,0.12)",
+                  color: "#fecaca",
+                  border: "1px solid rgba(239,68,68,0.25)",
+                }}
+              >
                 {error}
               </Alert>
             )}
@@ -117,9 +112,7 @@ const Login = () => {
                 variant="outlined"
                 margin="normal"
                 value={email}
-                onChange={(e) =>
-                  setEmail(e.target.value)
-                }
+                onChange={(e) => setEmail(e.target.value)}
                 InputLabelProps={{
                   style: { color: "#94a3b8" },
                 }}
@@ -135,9 +128,7 @@ const Login = () => {
                 variant="outlined"
                 margin="normal"
                 value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
+                onChange={(e) => setPassword(e.target.value)}
                 InputLabelProps={{
                   style: { color: "#94a3b8" },
                 }}
